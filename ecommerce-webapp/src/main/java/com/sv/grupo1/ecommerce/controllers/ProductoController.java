@@ -3,16 +3,17 @@ package com.sv.grupo1.ecommerce.controllers;
 import com.sv.grupo1.ecommerce.dto.ProductoRegistroDTO;
 import com.sv.grupo1.ecommerce.services.ProductoService;
 import jakarta.validation.Valid;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller
-@RequestMapping("/admin/productos")
+/*
+ * @author Miguel-A-Serrano
+ * */
+//@Controller
+//@RequestMapping("/admin/productos")
 public class ProductoController {
 
     private final ProductoService productoService;
@@ -25,7 +26,7 @@ public class ProductoController {
     public String mostrarFormulario(Model model) {
         // La clave debe coincidir exactamente con th:object="${productoDTO}"
         model.addAttribute("productoDTO", new ProductoRegistroDTO());
-        return "admin/registro-producto";
+        return "pages/admin/registro-producto";
     }
 
     @PostMapping("/guardar")
@@ -35,7 +36,7 @@ public class ProductoController {
             Model model) {
 
         if (result.hasErrors()) {
-            return "admin/registro-producto";
+            return "pages/admin/registro-producto";
         }
 
         try {
@@ -47,12 +48,12 @@ public class ProductoController {
             model.addAttribute("mensajeError", e.getMessage());
         }
 
-        return "admin/registro-producto";
+        return "pages/admin/registro-producto";
     }
 
     @GetMapping("/alertas-stock")
     public String mostrarAlertasStock(Model model) {
         model.addAttribute("productos", productoService.listarProductosConStockBajo());
-        return "admin/alertas-stock";
+        return "pages/admin/alertas-stock";
     }
 }
