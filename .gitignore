@@ -39,5 +39,5 @@ out/
 hs_err_pid*
 replay_pid*
 
-.agents
-.env
+ecommerce-webapp/logs/
+mock-gateway-api/logs/
