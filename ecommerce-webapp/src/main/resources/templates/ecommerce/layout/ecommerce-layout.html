@@ -2,23 +2,19 @@
      th:fragment="layout(contenido)"
      class="store-shell">
 
-    <!-- Menú comercial -->
     <div th:replace="~{ecommerce/fragments/ecommerce-navbar :: navbar}">
     </div>
 
-    <!-- Contenido de cada página -->
     <main class="store-main">
         <th:block th:replace="${contenido}">
             Contenido de la tienda
         </th:block>
     </main>
 
-    <!-- Footer -->
     <footer class="store-footer">
         <div class="container py-4">
             <div class="row align-items-center g-3">
 
-                <!-- Logo MultiStore con Carrito de compras con productos en el Footer -->
                 <div class="col-md-6">
                     <a th:href="@{/}" class="multistore-logo footer-logo text-decoration-none d-inline-flex align-items-center gap-2" title="MultiStore - Inicio">
                         <div class="logo-cart-badge footer-cart-badge" aria-hidden="true">
