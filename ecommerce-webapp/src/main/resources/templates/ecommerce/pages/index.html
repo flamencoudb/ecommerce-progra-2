@@ -61,9 +61,9 @@
             <div class="carousel-item active">
               <div class="row g-3">
 
-                <!-- 1. Tecnología -->
+                  <!-- 1. Tecnología -->
                 <div class="col-6 col-md-3">
-                  <a href="#productos" class="category-card-slide">
+                  <a th:href="@{/categorias/tecnologia}" class="category-card-slide">
                     <div class="category-img-container">
                       <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=450&q=80"
                            alt="Categoría Tecnología"
@@ -79,7 +79,7 @@
 
                 <!-- 2. Hogar -->
                 <div class="col-6 col-md-3">
-                  <a href="#productos" class="category-card-slide">
+                  <a th:href="@{/categorias/hogar}" class="category-card-slide">
                     <div class="category-img-container">
                       <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=450&q=80"
                            alt="Categoría Hogar"
@@ -95,7 +95,7 @@
 
                 <!-- 3. Moda -->
                 <div class="col-6 col-md-3">
-                  <a href="#productos" class="category-card-slide">
+                  <a th:href="@{/categorias/moda}" class="category-card-slide">
                     <div class="category-img-container">
                       <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=450&q=80"
                            alt="Categoría Moda"
@@ -111,7 +111,7 @@
 
                 <!-- 4. Accesorios -->
                 <div class="col-6 col-md-3">
-                  <a href="#productos" class="category-card-slide">
+                  <a th:href="@{/categorias/accesorios}" class="category-card-slide">
                     <div class="category-img-container">
                       <img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=450&q=80"
                            alt="Categoría Accesorios"
@@ -134,7 +134,7 @@
 
                 <!-- 5. Audio & Sonido -->
                 <div class="col-6 col-md-3">
-                  <a href="#productos" class="category-card-slide">
+                  <a th:href="@{/categorias/audio-sonido}" class="category-card-slide">
                     <div class="category-img-container">
                       <img src="https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=450&q=80"
                            alt="Categoría Audio & Sonido"
@@ -150,7 +150,7 @@
 
                 <!-- 6. Fotografía -->
                 <div class="col-6 col-md-3">
-                  <a href="#productos" class="category-card-slide">
+                  <a th:href="@{/categorias/fotografia}" class="category-card-slide">
                     <div class="category-img-container">
                       <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=450&q=80"
                            alt="Categoría Fotografía"
@@ -165,7 +165,7 @@
                 </div>
 
                 <div class="col-6 col-md-3">
-                  <a href="#productos" class="category-card-slide">
+                  <a th:href="@{/categorias/ofertas-top}" class="category-card-slide">
                     <div class="category-img-container">
                       <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=450&q=80"
                            alt="Categoría Ofertas Top"
@@ -181,7 +181,7 @@
 
 
                 <div class="col-6 col-md-3">
-                  <a href="#productos" class="category-card-slide">
+                  <a th:href="@{/categorias/novedades}" class="category-card-slide">
                     <div class="category-img-container">
                       <img src="https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&w=450&q=80"
                            alt="Categoría Novedades"
@@ -220,7 +220,7 @@
             </p>
           </div>
 
-          <a href="#categorias" class="btn btn-mustard btn-sm">
+          <a th:href="@{/categorias}" class="btn btn-mustard btn-sm">
             Ver categorías
             <i class="bi bi-arrow-up-right ms-1"></i>
           </a>
@@ -231,6 +231,7 @@
 
 
           <div class="col-6 col-md-4 col-lg-3">
+            <a th:href="@{/producto/auriculares-inalambricos}" class="text-decoration-none d-block h-100">
             <article class="product-card">
               <div class="product-image-container">
                 <img
@@ -244,16 +245,18 @@
               <div class="product-body">
                 <h3 title="Auriculares inalámbricos">Auriculares inalámbricos</h3>
                 <p class="product-price">$39.99</p>
-                <button type="button" class="btn btn-outline-primary btn-sm w-100 fw-semibold" onclick="alert('¡Producto añadido al carrito!')">
+                <button type="button" class="btn btn-outline-primary btn-sm w-100 fw-semibold"onclick="alert('¡Producto añadido al carrito!')"></button>>
                   <i class="bi bi-cart-plus me-1"></i>
                   Añadir al carrito
                 </button>
               </div>
             </article>
+            </a>
           </div>
 
 
           <div class="col-6 col-md-4 col-lg-3">
+            <a th:href="@{/producto/reloj-de-pulsera}" class="text-decoration-none d-block h-100">
             <article class="product-card">
               <div class="product-image-container">
                 <img
@@ -267,16 +270,18 @@
               <div class="product-body">
                 <h3 title="Reloj de pulsera clásico">Reloj de pulsera</h3>
                 <p class="product-price">$59.99</p>
-                <button type="button" class="btn btn-outline-primary btn-sm w-100 fw-semibold" onclick="alert('¡Producto añadido al carrito!')">
+                <button type="button" class="btn btn-outline-primary btn-sm w-100 fw-semibold"onclick="alert('¡Producto añadido al carrito!')"></button>>
                   <i class="bi bi-cart-plus me-1"></i>
                   Añadir al carrito
                 </button>
               </div>
             </article>
+            </a>
           </div>
 
 
           <div class="col-6 col-md-4 col-lg-3">
+            <a th:href="@{/producto/zapatillas-deportivas}" class="text-decoration-none d-block h-100">
             <article class="product-card">
               <div class="product-image-container">
                 <img
@@ -290,16 +295,18 @@
               <div class="product-body">
                 <h3 title="Zapatillas deportivas confort">Zapatillas deportivas</h3>
                 <p class="product-price">$49.99</p>
-                <button type="button" class="btn btn-outline-primary btn-sm w-100 fw-semibold" onclick="alert('¡Producto añadido al carrito!')">
+                <button type="button" class="btn btn-outline-primary btn-sm w-100 fw-semibold"onclick="alert('¡Producto añadido al carrito!')"></button>>
                   <i class="bi bi-cart-plus me-1"></i>
                   Añadir al carrito
                 </button>
               </div>
             </article>
+            </a>
           </div>
 
 
           <div class="col-6 col-md-4 col-lg-3">
+            <a th:href="@{/producto/camara-fotografica}" class="text-decoration-none d-block h-100">
             <article class="product-card">
               <div class="product-image-container">
                 <img
@@ -313,12 +320,13 @@
               <div class="product-body">
                 <h3 title="Cámara fotográfica réflex">Cámara fotográfica</h3>
                 <p class="product-price">$89.99</p>
-                <button type="button" class="btn btn-outline-primary btn-sm w-100 fw-semibold" onclick="alert('¡Producto añadido al carrito!')">
+                <button type="button" class="btn btn-outline-primary btn-sm w-100 fw-semibold" onclick="event.stopPropagation(); event.preventDefault(); alert('¡Producto añadido al carrito!')">
                   <i class="bi bi-cart-plus me-1"></i>
                   Añadir al carrito
                 </button>
               </div>
             </article>
+            </a>
           </div>
 
         </div>
