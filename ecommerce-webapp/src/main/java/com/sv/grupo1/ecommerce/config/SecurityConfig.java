@@ -36,11 +36,11 @@ public class SecurityConfig {
                 // 2. Rutas web públicas (las nuestras)
 
                 .requestMatchers(
-                    "/", "/registro", "/inicio-sesion",
-                    "/css/**", "/js/**", "/ecommerce/**",
-                    "/backoffice/**", "/uploads/**",
-                    // Nuevas rutas del frontend cliente
-                    "/carrito", "/categorias", "/categorias/**", "/producto/**"
+                        "/", "/registro", "/inicio-sesion",
+                        "/css/**", "/js/**", "/ecommerce/**",
+                        "/backoffice/**", "/uploads/**",
+                        "/carrito", "/categorias", "/categorias/**",
+                        "/producto/**", "/productos", "/productos/**"
                 ).permitAll()
       
 
