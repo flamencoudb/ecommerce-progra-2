@@ -114,18 +114,19 @@
 
         </div>
     </div>
-    <nav class="navbar navbar-expand-lg navbar-dark py-2" style="background-color: #e2a016;">
-    <div class="container">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-3">
-            <li class="nav-item">
-                <a class="nav-link text-white fw-bold px-3 py-1" th:href="@{/productos}">TODOS</a>
-            </li>
-            <li class="nav-item" th:each="cat : ${categorias}">
-                <a class="nav-link text-white fw-bold px-3 py-1"
-                th:href="@{/productos(idCategoria=${cat.id})}"
-                th:text="${cat.nombre}">CATEGORÍA</a>
-            </li>
-        </ul>
-    </div>
+
+    <nav class="navbar navbar-expand navbar-dark py-2" style="background-color: #e2a016;">
+        <div class="container overflow-x-auto text-nowrap">
+            <ul class="navbar-nav me-auto mb-0 gap-2 gap-lg-3 flex-row">
+                <li class="nav-item">
+                    <a class="nav-link text-white fw-bold px-3 py-1" th:href="@{/productos}">TODO</a>
+                </li>
+                <li class="nav-item" th:each="cat : ${categoriasNavbar != null ? categoriasNavbar : categorias}">
+                    <a class="nav-link text-white fw-bold px-3 py-1"
+                       th:href="@{/productos(idCategoria=${cat.idCategoria})}"
+                       th:text="${#strings.toUpperCase(cat.nombreCategoria)}">CATEGORÍA</a>
+                </li>
+            </ul>
+        </div>
     </nav>
 </header>

@@ -57,24 +57,45 @@
              
           <div class="carousel-inner">
 
-            <div class="carousel-item" th:classappend="${iterStat.first} ? 'active'" th:each="cat, iterStat : ${categorias}">
+            <div class="carousel-item active">
               <div class="row g-3">
-                <div class="col-12">
-                  <a th:href="@{/productos(idCategoria=${cat.id})}" class="category-card-slide">
+                <div class="col-6 col-md-3" th:each="cat, stat : ${categoriasCarousel}" th:if="${stat.index < 4}">
+                  <a th:href="${cat.enlace}" class="category-card-slide">
                     <div class="category-img-container">
-                      <img th:src="${cat.imagen}" 
-                          th:alt="${cat.nombre}" 
-                          class="category-slide-img" 
-                          loading="lazy">
+                      <img th:src="${cat.imagenUrl}"
+                           th:alt="${cat.nombreCategoria}"
+                           class="category-slide-img"
+                           loading="lazy">
                     </div>
                     <div class="category-text-wrap">
-                      <span class="category-title" th:text="${cat.nombre}">Nombre Categoría</span>
-                      <small class="category-subtitle">Explorar productos</small>
+                      <span class="category-title" th:text="${cat.nombreCategoria}">Tecnología</span>
+                      <small class="category-subtitle" th:text="${cat.subtitulo}">Audio, computación y gadgets</small>
                     </div>
-                 </a>
+                  </a>
                 </div>
               </div>
             </div>
+
+            <div class="carousel-item">
+              <div class="row g-3">
+                <div class="col-6 col-md-3" th:each="cat, stat : ${categoriasCarousel}" th:if="${stat.index >= 4 and stat.index < 8}">
+                  <a th:href="${cat.enlace}" class="category-card-slide">
+                    <div class="category-img-container">
+                      <img th:src="${cat.imagenUrl}"
+                           th:alt="${cat.nombreCategoria}"
+                           class="category-slide-img"
+                           loading="lazy">
+                    </div>
+                    <div class="category-text-wrap">
+                      <span class="category-title" th:text="${cat.nombreCategoria}">Audio & Sonido</span>
+                      <small class="category-subtitle" th:text="${cat.subtitulo}">Auriculares y altavoces</small>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </div>
 
           <div class="carousel-indicators position-relative mt-3 mb-0">
             <button type="button" data-bs-target="#carouselCategorias" data-bs-slide-to="0" class="active bg-primary" aria-current="true" aria-label="Slide 1"></button>
@@ -82,7 +103,6 @@
           </div>
         </div>
       </section>
-
 
       <section id="productos" class="container store-section">
 
@@ -96,41 +116,39 @@
           </div>
 
           <a th:href="@{/productos}" class="btn btn-mustard btn-sm">
-            Ver catalogo
+            Ver catálogo
             <i class="bi bi-arrow-up-right ms-1"></i>
           </a>
         </div>
 
-
         <div class="row g-3 g-md-4">
 
+          <div class="col-6 col-md-4 col-lg-3" th:each="prod : ${productosDestacados}">
+            <a th:href="@{/productos/{id}(id=${prod.idProducto})}" class="text-decoration-none d-block h-100">
+              <article class="product-card">
+                <div class="product-image-container">
+                  <img
+                    th:src="${prod.imagenPrincipalUrl}"
+                    th:alt="${prod.nombreProducto}"
+                    class="product-image"
+                    loading="lazy">
+                  <span class="product-badge" th:text="${prod.badge}">Destacado</span>
+                </div>
 
-          <div class="col-6 col-md-4 col-lg-3" th:each="prod, iterStat : ${productos}" th:if="${iterStat.index <4}">
-            <a th:href="@{/productos/{id}(id=${prod.id})}" class="text-decoration-none d-block h-100">
-            <article class="product-card">
-              <div class="product-image-container">
-                <img
-                  th:src="${prod.imagen}"
-                  alt="Auriculares inalámbricos"
-                  class="product-image"
-                  loading="lazy">
-                <span class="product-badge">Destacado</span>
-              </div>
-
-              <div class="product-body">
-                <h3 th:title="${prod.nombre}" th:text="${prod.nombre}">Auriculares inalámbricos</h3>
-                <p class="product-price" th:text="${'$'+prod.precio}">$0.00</p>
-                <button type="button" class="btn btn-outline-primary btn-sm w-100 fw-semibold"onclick="event.stopPropagation(); event.preventDefault(); alert('¡Producto añadido al carrito!')">
-                  <i class="bi bi-cart-plus me-1"></i>
-                  Añadir al carrito
-                </button>
-              </div>
-            </article>
+                <div class="product-body">
+                  <h3 th:title="${prod.nombreProducto}" th:text="${prod.nombreProducto}">Auriculares inalámbricos</h3>
+                  <p class="product-price" th:text="${'$' + #numbers.formatDecimal(prod.precioVenta, 1, 2)}">$39.99</p>
+                  <button type="button" class="btn btn-outline-primary btn-sm w-100 fw-semibold" onclick="event.stopPropagation(); event.preventDefault(); alert('¡Producto añadido al carrito!')">
+                    <i class="bi bi-cart-plus me-1"></i>
+                    Añadir al carrito
+                  </button>
+                </div>
+              </article>
             </a>
           </div>
+
         </div>
       </section>
-
 
       <section id="beneficios" class="container store-section mb-4">
         <div class="row g-3">
@@ -167,7 +185,6 @@
 
         </div>
       </section>
-
 
       <script>
         document.addEventListener('DOMContentLoaded', function () {
