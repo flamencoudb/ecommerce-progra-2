@@ -13,8 +13,10 @@ import com.sv.grupo1.ecommerce.services.ProductoService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.text.Normalizer;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -60,23 +62,66 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     @Transactional(readOnly = true)
     public List<Producto> filtrarProductos(String busqueda, Integer idCategoria, Integer idMarca) {
+
         List<Producto> todos = productoRepository.findAllConRelaciones();
         todos.forEach(imagenStorageService::cargarImagenesEnProducto);
-        String termino = (busqueda != null && !busqueda.isBlank()) ? busqueda.trim().toLowerCase(Locale.ROOT) : null;
+        String termino = (busqueda != null && !busqueda.isBlank()) 
+                ? normalizarTexto(busqueda)
+                : null;
 
-        return todos.stream()
+        List<Producto> filtrados = todos.stream()
+
+                .filter(p -> Character.valueOf('A').equals(p.getEstado()))
+
                 .filter(p -> {
+
                     if (termino == null) {
                         return true;
                     }
-                    boolean coincideSku = p.getCodigoSku() != null && p.getCodigoSku().toLowerCase(Locale.ROOT).contains(termino);
-                    boolean coincideNombre = p.getNombreProducto() != null && p.getNombreProducto().toLowerCase(Locale.ROOT).contains(termino);
-                    boolean coincideDesc = p.getDescripcionProducto() != null && p.getDescripcionProducto().toLowerCase(Locale.ROOT).contains(termino);
-                    return coincideSku || coincideNombre || coincideDesc;
+
+                    boolean coincideSku = normalizarTexto(p.getCodigoSku()).contains(termino);
+
+                    boolean coincideNombre = normalizarTexto(p.getNombreProducto()).contains(termino);
+
+                    boolean coincideDescripcion = normalizarTexto(p.getDescripcionProducto()).contains(termino);
+
+                    boolean coincideMarca = p.getMarca() != null
+                            && normalizarTexto(p.getMarca().getNombreMarca()).contains(termino);
+
+                    boolean coincideCategoria = false;
+
+                    Categoria categoriaActual = p.getCategoria();
+
+                    while (categoriaActual != null) {
+
+                        if (normalizarTexto(categoriaActual.getNombreCategoria()).contains(termino)) {
+                            coincideCategoria = true;
+                            break;
+                        }
+
+                        categoriaActual = categoriaActual.getCategoriaPadre();
+                    }
+
+                    return coincideSku
+                            || coincideNombre
+                            || coincideDescripcion
+                            || coincideMarca
+                            || coincideCategoria;
                 })
-                .filter(p -> idCategoria == null || (p.getCategoria() != null && idCategoria.equals(p.getCategoria().getIdCategoria())))
-                .filter(p -> idMarca == null || (p.getMarca() != null && idMarca.equals(p.getMarca().getIdMarca())))
+
+                .filter(p -> idCategoria == null
+                        || (p.getCategoria() != null
+                        && p.getCategoria().perteneceAJerarquia(idCategoria)))
+
+                .filter(p -> idMarca == null
+                        || (p.getMarca() != null
+                        && idMarca.equals(p.getMarca().getIdMarca())))
+
                 .toList();
+
+        filtrados.forEach(imagenStorageService::cargarImagenesEnProducto);
+
+        return filtrados;
     }
 
     @Override
@@ -204,3 +249,17 @@ public class ProductoServiceImpl implements ProductoService {
         return categorias;
     }
 }
+
+    private String normalizarTexto(String texto) {
+        if (texto == null) {
+            return "";
+        }
+
+        return Normalizer.normalize(texto, Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "")
+                .toLowerCase(Locale.ROOT)
+                .trim();
+    }
+
+}
+
